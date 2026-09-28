@@ -2,23 +2,39 @@
   "name": "rbg-lead-intelligence",
   "version": "0.1.0",
   "private": true,
+  "description": "RBG Outreach - desktop email campaign application",
+  "author": "RBG",
+  "main": "electron/main.js",
+  "type": "commonjs",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "concurrently -k -n SERVER,CLIENT,ELECTRON -c blue,green,magenta \"npm:dev:server\" \"npm:dev:client\" \"npm:dev:electron\"",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "vite --config client/vite.config.mjs",
+    "dev:electron": "electron .",
+    "server": "node server/index.js",
+    "client": "vite --config client/vite.config.mjs",
+    "electron": "electron .",
+    "build": "vite build --config client/vite.config.mjs",
+    "start": "concurrently -k -n SERVER,ELECTRON -c blue,magenta \"npm:server\" \"npm:electron\""
   },
   "dependencies": {
-    "geist": "^1.7.2",
-    "next": "16.2.9",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemailer": "^6.9.14",
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "sql.js": "^1.12.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.9",
-    "tailwindcss": "^4"
+    "@vitejs/plugin-react": "^4.3.3",
+    "concurrently": "^9.0.1",
+    "electron": "^32.1.2",
+    "vite": "^5.4.10"
   }
 }
